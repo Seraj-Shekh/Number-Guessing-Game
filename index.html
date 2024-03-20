@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Number Guessing Game</h1>
+      <h2>Guess the number between 1 to 100</h2>
+      <p id="message"></p>
+      <input type="number" id="guess" class="form-control mb-3" />
+      <button class="btn btn-primary" id="check">Check</button>
+      <button class="btn btn-secondary" id="new">New Game</button>
+    </div>
+    <script>
+      const messageEl = document.getElementById('message');
+      const guessEl = document.getElementById('guess');
+      const checkEl = document.getElementById('check');
+      const newEl = document.getElementById('new');
+
+      let randomNumber;
+      let guessCount = 0;
+      let correctGuess = false;
+
+      function startGame() {
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+        guessCount = 0;
+        correctGuess = false;
+      }
+
+      function checkGuess() {
+        guessCount++;
+        const guess = Number(guessEl.value);
+        if (guess < randomNumber) {
+          messageEl.textContent = 'Too low!';
+        } else if (guess > randomNumber) {
+          messageEl.textContent = 'Too high!';
+        } else {
+          messageEl.textContent = 'Correct!';
+          correctGuess = true;
+        }
+      }
+
+      function newGame() {
+        startGame();
+        guessEl.value = '';
+        messageEl.textContent = '';
+      }
+
+      startGame();
+
+      checkEl.onclick = checkGuess;
+      newEl.onclick = newGame;
+
+      guessEl.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          checkGuess();
+        }
+      });
+
+      setInterval(() => {
+        if (guessCount > 0 && !correctGuess) {
+          messageEl.textContent = `Guess #${guessCount}:`;
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
