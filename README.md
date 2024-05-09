@@ -1,0 +1,1 @@
+This is a normal number guessing game. It asks you to guess the number between 1 to 100 and give feedback according to the user input. To use this we can simply download the index.html file and open it with browser.
